@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Companion Studio | Live Companion & Audio Generator</title>
+    <meta name="description" content="Read any book, article, or code aloud with live word highlighting, human breathing pauses, and multi-lingual English & Bengali AI voices.">
+    <!-- Google Fonts: Plus Jakarta Sans, Outfit, Fira Code, Hind Siliguri for Bengali -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background dynamic ambient glow -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="studio-header">
+            <div class="header-top-row">
+                <div class="brand-badge">
+                    <span class="pulse-dot"></span>
+                    <span>AI Speech Studio</span>
+                </div>
+                <button type="button" id="btn-reset-defaults" class="reset-defaults-btn" title="Reset all settings to default">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                        <path d="M3 3v5h5"></path>
+                    </svg>
+                    Reset Defaults
+                </button>
+            </div>
+            <h1 class="main-title">Voice Companion <span class="gradient-text">Studio</span></h1>
+            <p class="subtitle">Natural book reading, live karaoke highlighting & human breathing pacing in English and বাংলা.</p>
+        </header>
+
+        <!-- Main Studio Grid -->
+        <main class="studio-grid">
+            <!-- Left Column: Reader & Input -->
+            <section class="reader-card glass-panel">
+                <div class="card-header">
+                    <div class="header-title-group">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+                            <path d="M6 6h10M6 10h10M6 14h6"></path>
+                        </svg>
+                        <h2>Reader & Document</h2>
+                    </div>
+                    <div class="preset-pills">
+                        <button type="button" class="pill active" id="btn-preset-book">📖 Jakarta at Night</button>
+                        <button type="button" class="pill" id="btn-preset-code">💻 Architecture</button>
+                        <button type="button" class="pill" id="btn-preset-bangla">🇧🇩 বাংলা গল্প</button>
+                        <button type="button" class="pill" id="btn-preset-reflection">🌿 Observant Mind</button>
+                    </div>
+                </div>
+
+                <!-- View Mode Switcher -->
+                <div class="view-switch-row">
+                    <div class="switch-tabs">
+                        <button type="button" id="tab-edit" class="tab-btn active">✏️ Edit Text</button>
+                        <button type="button" id="tab-teleprompter" class="tab-btn">🎙️ Live Teleprompter</button>
+                    </div>
+                    <span id="reading-status-chip" class="status-chip hidden">
+                        <span class="status-dot"></span>
+                        <span id="reading-status-text">Reading...</span>
+                    </span>
+                </div>
+
+                <div class="textarea-wrapper">
+                    <!-- Standard Textarea -->
+                    <textarea id="text-input" placeholder="Type or paste any book excerpt, article, or Bengali text here..." spellcheck="false"></textarea>
+                    
+                    <!-- Real-time Karaoke Word Teleprompter -->
+                    <div id="teleprompter-view" class="teleprompter-view hidden">
+                        <div id="teleprompter-content" class="teleprompter-content">
+                            <!-- Words generated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reader-footer">
+                    <div class="stats-group">
+                        <span id="word-count" class="stat-badge">0 words</span>
+                        <span id="read-time" class="stat-badge">~0 min read</span>
+                    </div>
+                    <div class="action-buttons-group">
+                        <button type="button" id="btn-clipboard" class="action-btn" title="Paste text from your clipboard">
+                            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
+                                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                            </svg>
+                            Paste Clipboard
+                        </button>
+                        <button type="button" id="btn-clear" class="action-btn text-muted" title="Clear text">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Column: Voice & Audio Controls -->
+            <aside class="controls-card glass-panel">
+                <div class="card-header">
+                    <div class="header-title-group">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                            <line x1="12" x2="12" y1="19" y2="22"></line>
+                        </svg>
+                        <h2>Delivery & Mode</h2>
+                    </div>
+                </div>
+
+                <!-- Reading Mode Selector (Styled Segmented Switcher) -->
+                <div class="control-section">
+                    <label class="control-label">Reading Mode</label>
+                    <div class="mode-segmented-control" id="mode-segmented-control">
+                        <button type="button" class="mode-tab-btn active" data-mode="live" id="tab-mode-live">
+                            <span class="mode-tab-icon">🚀</span>
+                            <div class="mode-tab-info">
+                                <span class="mode-tab-title">Read As You Go</span>
+                                <span class="mode-tab-desc">Layered progressive speech & live sync</span>
+                            </div>
+                        </button>
+                        <button type="button" class="mode-tab-btn" data-mode="audio" id="tab-mode-audio">
+                            <span class="mode-tab-icon">🎧</span>
+                            <div class="mode-tab-info">
+                                <span class="mode-tab-title">Generate Audio</span>
+                                <span class="mode-tab-desc">Full MP3 export with timeline</span>
+                            </div>
+                        </button>
+                    </div>
+                    <!-- Hidden select for form value binding -->
+                    <select id="mode-select" class="hidden">
+                        <option value="live" selected>Read As You Go</option>
+                        <option value="audio">Generate Audio</option>
+                    </select>
+                </div>
+
+                <!-- Voice Selection -->
+                <div class="control-section">
+                    <label for="voice-select" class="control-label">Reader Voice</label>
+                    <div class="voice-picker-wrapper">
+                        <select id="voice-select">
+                            <!-- Populated dynamically -->
+                        </select>
+                        <button type="button" id="btn-preview-voice" class="preview-btn" title="Audition this voice">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                            Preview
+                        </button>
+                    </div>
+                    <div id="voice-tag-display" class="voice-tag">Warm & Conversational</div>
+                </div>
+
+                <!-- Speed Slider -->
+                <div class="control-section">
+                    <div class="slider-header">
+                        <label for="speed-slider" class="control-label">Speech Speed</label>
+                        <span id="speed-val" class="value-tag">1.00x (Normal)</span>
+                    </div>
+                    <div class="slider-container">
+                        <input type="range" id="speed-slider" min="0.5" max="1.5" step="0.01" value="1.0">
+                    </div>
+                    <div class="slider-marks">
+                        <span class="mark-btn" id="mark-speed-low" title="Set to 0.5x">0.5x (Slow)</span>
+                        <span class="mark-btn mark-center" id="mark-speed-norm" title="Reset to 1.0x">1.0x (Normal)</span>
+                        <span class="mark-btn" id="mark-speed-high" title="Set to 1.5x">1.5x (Fast)</span>
+                    </div>
+                </div>
+
+                <!-- Pitch Slider -->
+                <div class="control-section">
+                    <div class="slider-header">
+                        <label for="pitch-slider" class="control-label">Vocal Pitch</label>
+                        <span id="pitch-val" class="value-tag">0 Hz (Natural)</span>
+                    </div>
+                    <div class="slider-container">
+                        <input type="range" id="pitch-slider" min="-50" max="50" step="1" value="0">
+                    </div>
+                    <div class="slider-marks">
+                        <span class="mark-btn" id="mark-pitch-low" title="Set to -50Hz">-50 Hz (Deep)</span>
+                        <span class="mark-btn mark-center" id="mark-pitch-norm" title="Reset to 0Hz">0 Hz (Natural)</span>
+                        <span class="mark-btn" id="mark-pitch-high" title="Set to +50Hz">+50 Hz (High)</span>
+                    </div>
+                </div>
+
+                <!-- Natural Breathing Pauses Toggle -->
+                <div class="control-section toggle-section">
+                    <div class="toggle-info">
+                        <span class="toggle-title">Human Breathing Pauses</span>
+                        <span class="toggle-desc">Paces long clauses with breath intakes, slows for unfamiliar words, and pauses at sentence boundaries.</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="pause-toggle" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <!-- Playback & Generation Card -->
+                <div class="playback-zone">
+                    <button type="button" id="btn-speak" class="primary-btn pulse-glow">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        <span id="speak-btn-text">Read As You Go</span>
+                    </button>
+
+                    <!-- Polished Centered Audio Beat & Breathing Visualizer -->
+                    <div id="visualizer-wrapper" class="visualizer-wrapper">
+                        <canvas id="visualizer-canvas" width="440" height="56"></canvas>
+                    </div>
+
+                    <!-- Audio Player Interface -->
+                    <div id="player-container" class="player-container hidden">
+                        <audio id="audio-element"></audio>
+                        <div class="player-controls">
+                            <button type="button" id="btn-play-pause" class="player-btn" title="Play/Pause">
+                                <svg id="icon-play" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                <svg id="icon-pause" class="hidden" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                            </button>
+
+                            <div class="progress-bar-wrapper">
+                                <input type="range" id="seek-bar" min="0" max="100" value="0">
+                                <div class="time-display">
+                                    <span id="current-time">0:00</span>
+                                    <span>/</span>
+                                    <span id="total-duration">0:00</span>
+                                </div>
+                            </div>
+
+                            <button type="button" id="btn-download" class="player-btn download-btn" title="Download Audio File (MP3)">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" x2="12" y1="15" y2="3"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">Settings reset to defaults!</div>
+
+    <script src="app.js"></script>
+</body>
+</html>
