@@ -43,10 +43,10 @@ let isLiveReadingActive = false;
 let liveReadingToken = 0; // cancellation token
 let prefetchCache = new Map(); // chunk_idx -> Promise<{ audio, words, duration }>
 
-// Base API URL: Automatically detects localhost or uses window.SPEECH_API_BASE when hosted on GitHub Pages
-const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || !window.location.hostname)
+// Base API URL: Automatically detects localhost/Render or routes to Render when on GitHub Pages
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || !window.location.hostname || window.location.hostname.includes('onrender.com'))
     ? ''
-    : (window.SPEECH_API_BASE || '');
+    : (window.SPEECH_API_BASE || 'https://tts-voice-studio-4yxi.onrender.com');
 
 // Audio Context for Beat Visualizer
 let audioCtx = null;
