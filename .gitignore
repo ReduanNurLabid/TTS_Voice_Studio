@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.venv/
+env/
+venv/
+
+# Antigravity IDE & Gemini artifacts
+.gemini/
+.agents/
+.system_generated/
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+*.log

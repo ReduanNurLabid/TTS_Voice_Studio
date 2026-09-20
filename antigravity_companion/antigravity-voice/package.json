@@ -1,0 +1,140 @@
+{
+  "name": "antigravity-voice",
+  "displayName": "Antigravity Voice Companion",
+  "description": "Real-time, natural neural voice companion that speaks Antigravity assistant responses with progressive streaming.",
+  "version": "1.0.0",
+  "publisher": "reduan",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Accessibility",
+    "Other"
+  ],
+  "keywords": [
+    "voice",
+    "tts",
+    "speech",
+    "antigravity",
+    "gemini",
+    "companion"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "antigravityVoice.openMenu",
+        "title": "Voice: Open Menu",
+        "category": "Antigravity"
+      },
+      {
+        "command": "antigravityVoice.toggle",
+        "title": "Voice: Toggle On/Off",
+        "category": "Antigravity"
+      },
+      {
+        "command": "antigravityVoice.changeVoice",
+        "title": "Voice: Select Voice",
+        "category": "Antigravity"
+      },
+      {
+        "command": "antigravityVoice.changeSpeed",
+        "title": "Voice: Adjust Speed",
+        "category": "Antigravity"
+      },
+      {
+        "command": "antigravityVoice.stop",
+        "title": "Voice: Stop Speaking",
+        "category": "Antigravity"
+      },
+      {
+        "command": "antigravityVoice.replayLast",
+        "title": "Voice: Read Last Response",
+        "category": "Antigravity"
+      },
+      {
+        "command": "antigravityVoice.changeVolume",
+        "title": "Voice: Adjust Volume",
+        "category": "Antigravity"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "antigravityVoice.replayLast",
+        "key": "ctrl+alt+r",
+        "mac": "cmd+alt+r"
+      }
+    ],
+    "configuration": {
+      "title": "Antigravity Voice Companion",
+      "properties": {
+        "antigravityVoice.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or mute Antigravity reading responses aloud."
+        },
+        "antigravityVoice.voice": {
+          "type": "string",
+          "default": "en-US-AndrewMultilingualNeural",
+          "enum": [
+            "en-US-AndrewMultilingualNeural",
+            "en-US-JennyNeural",
+            "en-US-AvaMultilingualNeural",
+            "en-US-BrianMultilingualNeural",
+            "en-US-GuyNeural",
+            "en-US-EmmaMultilingualNeural",
+            "en-GB-RyanNeural",
+            "en-GB-SoniaNeural"
+          ],
+          "enumDescriptions": [
+            "Andrew (Natural Male - US) - Smooth & Conversational",
+            "Jenny (Natural Female - US) - Clear & Crisp",
+            "Ava (Expressive Female - US) - Melodic & Engaging",
+            "Brian (Deep Male - US) - Authoritative & Calm",
+            "Guy (Casual Male - US) - Relaxed & Friendly",
+            "Emma (Warm Female - US) - Gentle & Polite",
+            "Ryan (British Male - UK) - Refined British accent",
+            "Sonia (British Female - UK) - Natural British accent"
+          ],
+          "description": "Choose the neural voice used for spoken responses."
+        },
+        "antigravityVoice.speed": {
+          "type": "string",
+          "default": "+0%",
+          "enum": [
+            "-15%",
+            "-5%",
+            "+0%",
+            "+10%",
+            "+20%",
+            "+35%"
+          ],
+          "enumDescriptions": [
+            "0.85x (Slower) - Easy to follow for complex code",
+            "0.95x (Relaxed) - Slightly slower than standard",
+            "1.0x (Normal) - Natural human conversational pace",
+            "1.1x (Brisk) - Good for quick summaries",
+            "1.2x (Fast) - Speedy playback",
+            "1.35x (Very Fast) - Rapid information consumption"
+          ],
+          "description": "Speech playback speed / rate."
+        },
+        "antigravityVoice.progressiveChunking": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable 4-layer progressive chunking (1 -> 2 -> 5 -> remaining sentences) for zero-latency start with natural cross-sentence flow."
+        },
+        "antigravityVoice.volume": {
+          "type": "integer",
+          "default": 100,
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Speech playback volume percentage (0 to 100%)."
+        }
+      }
+    }
+  }
+}
